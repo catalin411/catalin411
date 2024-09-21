@@ -1,0 +1,78 @@
+from tkinter import *
+import random
+
+window =Tk()
+window.geometry("1000x800")
+window.title("English practice")
+window.iconbitmap('')
+bg =PhotoImage(file="C:/Users/catal/OneDrive/Desktop/_3bbc79c3-8643-4a22-a0b1-505ee11928c5.gif")
+
+imagine=Label(window,image=bg)
+imagine.place(x=-1,y=0)
+words = {
+    #A
+    "about":"despre",
+    "add":"adauga",
+    "afternoon":"dupa amiaza",
+    "again":"din nou",
+    "alien":"extraterestru",
+    "alphabet":"alfabet",
+    "and":"si",
+    "angry":"suparat",
+    "animal":"animal",
+    "answer":"raspuns",
+    "apartament":"apartament",
+    "apple": "măr",
+    "arm":"brat",
+    "armchair":"fotoliu",
+    "ask":"cere/intreb",
+
+    #B
+    
+}
+nr_rsp_cor =0
+def random_cuvant():
+    global cuvant_ro,cuvant_eng
+    cuvant_ro = random.choice(list(words.values()))
+    cuvant_eng=[eng for eng,rom in words.items() if rom == cuvant_ro][0]
+    label2.config(text =f"Care este traducerea cuvantului '{cuvant_ro}'?")
+
+def verificare():
+    global nr_rsp_cor
+    cuv_int=raspuns.get()
+    if cuv_int.lower()== cuvant_eng.lower():
+        rezultat_lb.config(text = "Corect" ,fg= "green")
+        nr_rsp_cor+=1
+    else:
+        rezultat_lb.config(text = f"Incorect! Cuvantul corect este '{cuvant_eng}'""." ,fg ="red")
+
+    label3.config(text=nr_rsp_cor)
+
+def restart():
+    random_cuvant()
+    raspuns.delete(0,END)
+    rezultat_lb.config(text="")
+    
+label1= Label(window,text="CAT DE BINE STII ENGLEZA ?",font =("Arial",25),fg ="orange")
+label1.pack(pady = 10)
+
+label2=Label(window,text =f"",fg = "black",font=("aria",20))
+label2.pack(pady= 5)
+
+random_cuvant()
+
+raspuns = Entry(window,width =30,font =("aria",20))
+raspuns.pack(pady = 20)
+
+rezultat_lb=Label(window, text="",font=("aria",25))
+rezultat_lb.pack(pady=5)
+
+verifica =Button(window,text="Check",command= verificare,font= ("aria",22))
+verifica.pack(pady =5)
+
+btrestart =Button(window,text="NEXT",command = restart,font= ("aria",20))
+btrestart.pack(pady=5)
+
+label3=Label(window,text="",font=("aria",20),fg="blue")
+label3.pack(pady=5)
+window.mainloop()
